@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BALANZI · Pop-ups · From the Workshop · v6.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1714;
+    --warm:#F5F2EC;
+    --sand:#F4F2EE;
+    --rule:#e8e1d4;
+    --new:#2E5A3E;
+    --kept:#B7791F;
+    --warm-mid:#8b6a3f;
+    --white:#fff;
+  }
+  *,*::before,*::after{ box-sizing:border-box }
+  html,body{ margin:0; padding:0; background:#FAF8F3; color:#1A1714; font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility }
+  body{ padding:0 0 80px 0 }
+
+  /* ── PAGE HEADER (intro for Claude Design) ── */
+  .page-hero{
+    max-width:1280px; margin:0 auto; padding:48px 32px 24px;
+  }
+  .page-hero .eyebrow{
+    font:700 11px/1 Inter,sans-serif; letter-spacing:0.28em; text-transform:uppercase; color:#7d6f5e; margin-bottom:14px;
+  }
+  .page-hero h1{
+    margin:0 0 12px 0; font:800 38px/1.05 Inter,sans-serif; letter-spacing:-0.022em; color:#1A1714;
+  }
+  .page-hero h1 em{ font-weight:300; font-style:italic; color:#7d6f5e }
+  .page-hero p{
+    margin:0 0 8px 0; font:400 15px/1.55 Inter,sans-serif; color:#5e554a; max-width:780px;
+  }
+  .page-hero .meta-row{
+    display:flex; gap:18px; flex-wrap:wrap; margin-top:14px;
+    font:500 12px/1.4 Inter,sans-serif; letter-spacing:0.04em; color:#7d6f5e;
+  }
+  .page-hero .meta-row span b{ color:#1A1714; font-weight:700; margin-right:4px }
+
+  /* ── KIT-EXTRACTED CSS (rendering only) ── */
+  .sec{ max-width:1280px; margin:0 auto; padding:0 32px }
+  .sec h2{ display:none } /* hide kit section H2 — page hero replaces it */
+  .sec > p{ display:none } /* hide kit section description — page hero replaces it */
+
+  .grid{ display:block }
+
+  .family-block{ grid-column:1/-1 }
+
+  .card{
+    background:#fff; border:1px solid var(--rule); padding:14px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  }
+
+  .frame{
+    aspect-ratio:9/16; border:1px solid var(--rule); background:#000;
+    overflow:hidden; position:relative;
+    box-shadow:0 6px 24px rgba(0,0,0,0.10);
+    container-type:inline-size;
+  }
+  .frame-916{ aspect-ratio:9/16 }
+  .frame-inner{ position:absolute; inset:0; overflow:hidden }
+  .frame img{ width:100%; height:100%; display:block; object-fit:cover; object-position:center }
+  .frame .pid{
+    position:absolute; top:-26px; left:0;
+    font:800 10px/1 Inter,sans-serif; letter-spacing:0.18em;
+    color:#1F8A3E;
+    max-width:60%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    text-transform:uppercase;
+  }
+
+  .adcanvas{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+    color:#fff;
+  }
+  .adcanvas.ink{ color:#1C1C1C }
+
+  /* ── META BLOCK BELOW EACH FRAME ── */
+  .meta{ margin-top:20px; padding-top:14px; border-top:1px solid #eee }
+  .meta .name{
+    font:700 10px/1.4 'SF Mono',Menlo,Consolas,monospace; letter-spacing:0.02em; color:#1A1714; margin-bottom:8px; word-break:break-all;
+  }
+  .meta .when{
+    font:400 12px/1.5 Inter,sans-serif; color:#5e554a; margin-bottom:10px;
+  }
+  .meta .when b{ color:#1A1714; font-weight:700 }
+  .meta .chips{ display:flex; gap:6px; flex-wrap:wrap }
+  .chip{
+    font:600 10px/1 Inter,sans-serif; letter-spacing:0.06em; text-transform:uppercase;
+    background:#F0EDE7; color:#5e554a; padding:5px 9px; border-radius:99px;
+  }
+  .chip.new{ background:#1F8A3E; color:#fff }
+
+  /* ── FAMILY BLOCK STYLES (variant header) ── */
+  .family-block h3 em{ font-weight:300; font-style:italic; color:#8A857E }
+
+  /* ── PRINT FRIENDLY ── */
+  @media print{
+    body{ background:#fff }
+    .page-hero{ page-break-after:always }
+    .family-block{ page-break-inside:avoid }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-hero">
+  <div class="eyebrow">BALANZI · Pop-ups · From the Workshop · v6.5</div>
+  <h1>Pop-up design review · <em>16 hooks + 3 success states</em></h1>
+  <p><b>Brief.</b> Prospect-community email pop-up for BALANZI.com. The "offer" is access to The Workshop — a private channel from the BALANZI founders with vision, decisions, mistakes, and pre-purchase answers. Replaces the broken "delivery perk" pop-up. Brand voice is calm, anti-sales, no discounts, no urgency. Audience is 50yo Self-Made Man, US, 78% male. iPhone 390×844 native.</p>
+  <p>Four headline angles tested side-by-side. Each ships in 2 cream + 2 dark variations with different BTS / product images. Three success-state options below the hook variants.</p>
+  <div class="meta-row">
+    <span><b>Format</b> 390×844 iPhone pop-up</span>
+    <span><b>Goal</b> email capture → Klaviyo welcome → community link</span>
+    <span><b>Constraint</b> no banned words (premium / luxury / lifetime guarantee / urgency)</span>
+    <span><b>Pattern</b> bold + italic resolution line · separate-line italic per BALANZI typography</span>
+  </div>
+</header>
+
+<!-- BEGIN extracted #email-popups-workshop section -->
+<section class="sec" id="email-popups-workshop" style="padding-top:48px; border-top:3px solid #2E5A3E; margin-top:36px">
+  <h2 style="margin:0 0 8px 0; font:800 26px/1.1 Inter,sans-serif">Pop-ups · From the Workshop <span style="font:500 13px/1 Inter,sans-serif; color:#7d6f5e; margin-left:8px">v6.5 · 4 headline angles × 4 cream/dark variations + 3 success states</span></h2>
+  <p style="margin:0 0 24px 0; font:400 14px/1.55 Inter,sans-serif; color:#5e554a; max-width:880px"><b>v6.5 · 4 headlines side-by-side for Klara to pick the finals.</b> <b>A</b> <em>"We don't sell here."</em> (anti-sales pattern-break) · <b>B</b> <em>"Read this before you buy."</em> (utility-forward) · <b>C</b> <em>"Meet the chain."</em> (curiosity / chain-as-protagonist · NEW · fresh images) · <b>D</b> <em>"Bring your questions."</em> (active invitation / community Q&A · NEW · fresh images). Subhead unified across all 16 hook cards: <em>"A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying."</em> Step 2 segmentation still pending framing lock.</p>
+  <div class="grid" style="display:block">
+
+    <div class="family-block" style="grid-column:1/-1; margin-top:40px; padding:28px 0; border-top:2px solid rgba(46,90,62,0.40)">
+      <div style="margin-bottom:22px">
+        <div style="font:700 11px/1.2 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#2E5A3E; margin-bottom:6px">Variant A · Anti-sales positioning</div>
+        <h3 style="margin:0 0 6px 0; font:800 22px/1.2 Inter,sans-serif; color:#1A1714; letter-spacing:-0.014em">We don't sell here.</h3>
+        <p style="margin:0; font:400 13px/1.5 Inter,sans-serif; color:#5e554a; max-width:880px">Subverts the pop-up convention in five words. Community-as-experience frame. Single-line headline, no italic resolution — the silence after the period IS the punchline. 4 variations: cream-photo-top + dark-packaging-hero.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:20px; align-items:start">
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant A" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-A-01" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-A-01 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:48%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-busts-with-chains-and-open-box.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 45%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(48% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:0">We don't sell</div>
+              <div style="font:300 italic 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.020em; color:#8A857E; margin-top:0.4cqi; margin-bottom:5cqi">here.</div>
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">The prototype we killed at 80%. The clasp that failed inspection. The supplier we stopped working with. From the BALANZI founders — direct.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. ~1 email a week.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-A-01_The-Window_390x844_v6.5</div>
+            <div class="when"><b>A-01 · The Window · Cream · photo-top · ORIGINAL</b><br/><span style="color:#7d6f5e">Busts + box BTS spread. Safest first-second read. v6.5 fix: dropped italic line, headline tightened to single-line We dont sell here.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant A</span><span class="chip">The Window</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant A" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-A-02" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-A-02 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:50%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-12mm-chain-in-hand-with-box.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 70%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(50% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:0">We don't sell</div>
+              <div style="font:300 italic 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.020em; color:rgba(255,255,255,0.55); margin-top:0.4cqi; margin-bottom:5cqi">here.</div>
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">The prototype we killed at 80%. The clasp that failed inspection. The supplier we stopped working with. From the BALANZI founders — direct.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">~1 email a week. Reply hits our inbox.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Maybe later</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-A-02_The-Vault_390x844_v6.5</div>
+            <div class="when"><b>A-02 · The Vault · Dark · packaging hero · LOWER</b><br/><span style="color:#7d6f5e">Image positioned LOWER (object-position 70%) — fixes bag cut-off. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant A</span><span class="chip">The Vault</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant A" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-A-03" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-A-03 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-two-busts-gold-and-silver.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 42%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:0">We don't sell</div>
+              <div style="font:300 italic 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.020em; color:#8A857E; margin-top:0.4cqi; margin-bottom:5cqi">here.</div>
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">The prototype we killed at 80%. The clasp that failed inspection. The supplier we stopped working with. From the BALANZI founders — direct.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. No spam.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-A-03_The-Pair_390x844_v6.5</div>
+            <div class="when"><b>A-03 · The Pair · Cream · photo-top · NEW</b><br/><span style="color:#7d6f5e">Two-busts gold+silver. Cleaner, less busy than The Window. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant A</span><span class="chip">The Pair</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant A" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-A-04" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-A-04 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-s-curve-clasp-navy-hero.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:0">We don't sell</div>
+              <div style="font:300 italic 11.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.020em; color:rgba(255,255,255,0.55); margin-top:0.4cqi; margin-bottom:5cqi">here.</div>
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">The prototype we killed at 80%. The clasp that failed inspection. The supplier we stopped working with. From the BALANZI founders — direct.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">Free. Unsubscribe anytime.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-A-04_The-Hero_390x844_v6.5</div>
+            <div class="when"><b>A-04 · The Hero · Dark · navy product hero · NEW</b><br/><span style="color:#7d6f5e">Polished navy chain hero. More product-mode than packaging. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant A</span><span class="chip">The Hero</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="family-block" style="grid-column:1/-1; margin-top:40px; padding:28px 0; border-top:2px solid rgba(46,90,62,0.40)">
+      <div style="margin-bottom:22px">
+        <div style="font:700 11px/1.2 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#2E5A3E; margin-bottom:6px">Variant B · Pre-purchase help</div>
+        <h3 style="margin:0 0 6px 0; font:800 22px/1.2 Inter,sans-serif; color:#1A1714; letter-spacing:-0.014em">Read this before you buy.</h3>
+        <p style="margin:0; font:400 13px/1.5 Inter,sans-serif; color:#5e554a; max-width:880px">Pre-purchase utility frame. Single-line headline matches Variant A discipline — the body does the softening, not a second clause. 4 variations: cream-photo-top + dark-packaging-hero.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:20px; align-items:start">
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant B" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-B-01" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-B-01 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-bracelets-on-laptop-with-box.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 38%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Read this before you buy.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. ~1 email a week.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-B-01_The-Bench_390x844_v6.5</div>
+            <div class="when"><b>B-01 · The Bench · Cream · photo-top · ORIGINAL</b><br/><span style="color:#7d6f5e">Bracelet-on-laptop. Strongest 'real work' signal — clearly mid-work on someone's keyboard. v6.5 fix: separate-line italic + unified subhead.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant B</span><span class="chip">The Bench</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant B" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-B-02" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-B-02 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:50%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-chains-and-boxes-overhead.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 60%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(50% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Read this before you buy.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">No spam. ~1 email a week.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-B-02_The-Overhead_390x844_v6.5</div>
+            <div class="when"><b>B-02 · The Overhead · Dark · BTS overhead · LOWER</b><br/><span style="color:#7d6f5e">Chains + boxes overhead — iPhone-on-table angle. Strongest 'this isn't a campaign' signal. Image positioned lower for breathing. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant B</span><span class="chip">The Overhead</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant B" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-B-03" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-B-03 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-busts-and-tray-setup-sideways.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 45%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Read this before you buy.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. No spam.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Maybe later</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-B-03_The-Studio_390x844_v6.5</div>
+            <div class="when"><b>B-03 · The Studio · Cream · photo-top · NEW</b><br/><span style="color:#7d6f5e">New cream variant — busts and tray setup sideways. More 'studio in progress' less 'product display'. Editorial lean. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant B</span><span class="chip">The Studio</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant B" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-B-04" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-B-04 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-double-clasp-navy.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Read this before you buy.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">Free. Unsubscribe anytime.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-B-04_The-Macro_390x844_v6.5</div>
+            <div class="when"><b>B-04 · The Macro · Dark · navy clasp macro · NEW</b><br/><span style="color:#7d6f5e">New dark variant — clasp macro detail on navy. Most editorial / most product-focused. For high-intent prospects looking at chain details. v6.5 fix: separate-line italic.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant B</span><span class="chip">The Macro</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="family-block" style="grid-column:1/-1; margin-top:40px; padding:28px 0; border-top:2px solid rgba(46,90,62,0.40)">
+      <div style="margin-bottom:22px">
+        <div style="font:700 11px/1.2 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#2E5A3E; margin-bottom:6px">Variant C · Meet the chain (curiosity)</div>
+        <h3 style="margin:0 0 6px 0; font:800 22px/1.2 Inter,sans-serif; color:#1A1714; letter-spacing:-0.014em">Meet the chain.</h3>
+        <p style="margin:0; font:400 13px/1.5 Inter,sans-serif; color:#5e554a; max-width:880px">Curiosity / depth angle. Verb 'Meet' invites without creating purchase friction — treats the chain as a protagonist worth introducing. 4 new variations with fresh images (hands · clasp navy · neck · s-curve).</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:20px; align-items:start">
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant C" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-C-01" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-C-01 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:48%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-hands-with-silver-chain-busts.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 45%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(48% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 10.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Meet the chain.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. ~1 email a week.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-C-01_The-Hands_390x844_v6.5</div>
+            <div class="when"><b>C-01 · The Hands · Cream · photo-top · NEW</b><br/><span style="color:#7d6f5e">Hands literally holding the chain — the gesture of meeting. New image not used elsewhere.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant C</span><span class="chip">The Hands</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant C" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-C-02" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-C-02 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:48%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-clasp-macro-navy.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(48% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 10.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Meet the chain.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">~1 email a week. Reply hits our inbox.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Maybe later</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-C-02_The-Clasp_390x844_v6.5</div>
+            <div class="when"><b>C-02 · The Clasp · Dark · clasp macro on navy · NEW</b><br/><span style="color:#7d6f5e">Macro clasp on navy — 'meet the chain' reads as intimate close-up. Different from the s-curve hero in A-04.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant C</span><span class="chip">The Clasp</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant C" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-C-03" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-C-03 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:48%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-chain-on-neck-beige-knit.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 42%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(48% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 10.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Meet the chain.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. No spam.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-C-03_The-Neck_390x844_v6.5</div>
+            <div class="when"><b>C-03 · The Neck · Cream · chain on neck · NEW</b><br/><span style="color:#7d6f5e">Chain on someone's neck (beige knit). Most intimate intro shot — 'meet' becomes literal.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant C</span><span class="chip">The Neck</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant C" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-C-04" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-C-04 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-s-curve-clasp-navy.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 10.5cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Meet the chain.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">Free. Unsubscribe anytime.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-C-04_The-Curve_390x844_v6.5</div>
+            <div class="when"><b>C-04 · The Curve · Dark · s-curve clasp on navy · NEW</b><br/><span style="color:#7d6f5e">S-curve clasp on navy (different shot than A-04 hero — this is the editorial close variant). Editorial product feel for 'Meet'.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant C</span><span class="chip">The Curve</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="family-block" style="grid-column:1/-1; margin-top:40px; padding:28px 0; border-top:2px solid rgba(46,90,62,0.40)">
+      <div style="margin-bottom:22px">
+        <div style="font:700 11px/1.2 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#2E5A3E; margin-bottom:6px">Variant D · Bring your questions (community)</div>
+        <h3 style="margin:0 0 6px 0; font:800 22px/1.2 Inter,sans-serif; color:#1A1714; letter-spacing:-0.014em">Bring your questions.</h3>
+        <p style="margin:0; font:400 13px/1.5 Inter,sans-serif; color:#5e554a; max-width:880px">Active invitation / Q&A angle. Strongest community signal — pre-selects engaged researchers (higher LTV opt-ins). Small theoretical 'pause-to-ask' friction but ready buyers ignore popups anyway. 4 new variations with fresh images (chains pile · clasp detail · three busts · vertical macro).</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:20px; align-items:start">
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant D" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-D-01" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-D-01 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-mixed-silver-gold-chains-pile.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 42%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Bring your questions.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. ~1 email a week.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not for me right now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-D-01_The-Pile_390x844_v6.5</div>
+            <div class="when"><b>D-01 · The Pile · Cream · mixed chains pile · NEW</b><br/><span style="color:#7d6f5e">Mixed silver+gold chains piled casually — 'lots to ask about, ask away'. Conversational feel.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant D</span><span class="chip">The Pile</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant D" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-D-02" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-D-02 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:48%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-clasp-detail-macro.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(48% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Bring your questions.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">~1 email a week. Reply hits our inbox.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Maybe later</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-D-02_The-Detail_390x844_v6.5</div>
+            <div class="when"><b>D-02 · The Detail · Dark · clasp detail macro · NEW</b><br/><span style="color:#7d6f5e">Clasp detail macro — pulls 'ask about the engineering' angle. Photo signals depth, headline invites the question.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant D</span><span class="chip">The Detail</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant D" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="cream-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-D-03" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-D-03 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-three-busts-staging.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 45%; display:block"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(245,242,236,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <!-- Content block · CTA pulled up · bottom 14cqi instead of 7cqi -->
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#1C1C1C; margin-bottom:5cqi">Bring your questions.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:#1C1C1C; margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <!-- Caption ABOVE input (not below CTA) -->
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#8A857E; text-align:center; margin-bottom:2.2cqi">Free. No spam.</div>
+
+              <div>
+                <div style="border:1px solid #1C1C1C; height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#1C1C1C; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dismiss link · bigger, more visible (3.1cqi · opacity 0.7) -->
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#1C1C1C; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.7; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-D-03_The-Three_390x844_v6.5</div>
+            <div class="when"><b>D-03 · The Three · Cream · three busts staging · NEW</b><br/><span style="color:#7d6f5e">Three busts staged — multiple chains, multiple choices, lots to ask about. Wider conversation hook.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant D</span><span class="chip">The Three</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="Variant D" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="dark-split">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-D-04" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-D-04 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#1C1C1C; color:#FFFFFF">
+            <div style="position:absolute; top:0; left:0; right:0; height:46%; overflow:hidden">
+              <img loading="lazy" decoding="async" src="balanzi-assets/product%20close-ups/Polished/polished-gold-chain-clasp-vertical-macro.jpg" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; filter:brightness(0.92)"/>
+              <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(28,28,28,1) 100%); pointer-events:none"></div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#FFFFFF; pointer-events:none; text-shadow:0 1px 3px rgba(0,0,0,0.3)">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#FFFFFF; text-shadow:0 1px 4px rgba(0,0,0,0.4); cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:calc(46% - 3%); left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-bottom:4cqi">From the Workshop</div>
+              <div style="font:800 8.6cqi/1.02 Inter,sans-serif; letter-spacing:-0.028em; color:#FFFFFF; margin-bottom:5cqi">Bring your questions.</div>
+              
+              <div style="font:400 3.5cqi/1.45 Inter,sans-serif; color:rgba(255,255,255,0.74); margin-bottom:auto">A private group from the BALANZI founders. The vision, decisions, mistakes, and the answers you'd want before buying.</div>
+
+              <div style="font:500 italic 2.55cqi/1.45 Inter,sans-serif; color:#a8a39d; text-align:center; margin-bottom:2.2cqi">Free. Unsubscribe anytime.</div>
+
+              <div>
+                <div style="border:1px solid rgba(255,255,255,0.4); height:13cqi; padding:0 4.5cqi; display:flex; align-items:center; margin-bottom:3cqi">
+                  <div style="font:400 3.8cqi/1 Inter,sans-serif; color:#FFFFFF; opacity:0.42">your@email</div>
+                </div>
+                <div style="background:#FFFFFF; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#1C1C1C">Step inside</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:5cqi; left:0; right:0; text-align:center; z-index:3">
+              <span style="font:500 3.1cqi/1 Inter,sans-serif; letter-spacing:0.04em; color:#FFFFFF; text-decoration:underline; text-underline-offset:0.6cqi; opacity:0.75; cursor:pointer">Not now</span>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(255,255,255,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-D-04_The-Vertical_390x844_v6.5</div>
+            <div class="when"><b>D-04 · The Vertical · Dark · clasp vertical macro · NEW</b><br/><span style="color:#7d6f5e">Clasp vertical macro — most editorial dark variant. Specificity-led for the high-intent researcher.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">Variant D</span><span class="chip">The Vertical</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="family-block" style="grid-column:1/-1; margin-top:40px; padding:28px 0; border-top:2px solid rgba(74,46,90,0.40)">
+      <div style="margin-bottom:22px">
+        <div style="font:700 11px/1.2 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#5A2E5A; margin-bottom:6px">After capture · post-step</div>
+        <h3 style="margin:0 0 6px 0; font:800 22px/1.2 Inter,sans-serif; color:#1A1714; letter-spacing:-0.014em">Success states · <em style="font-weight:300">3 options</em></h3>
+        <p style="margin:0; font:400 13px/1.5 Inter,sans-serif; color:#5e554a; max-width:880px">Shared across both Variant A and Variant B. <b>S-02 Soft Toast is the recommended pick</b> — lowest friction, keeps him shopping.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:20px; align-items:start">
+        <div class="card" data-angle="community" data-format="popup" data-variant="SUCCESS" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="success-calm">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-S-01" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-S-01 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#1C1C1C; pointer-events:none">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; top:7.5%; right:5.5%; width:9cqi; height:9cqi; display:flex; align-items:center; justify-content:center; z-index:5; opacity:0.75; font:300 6cqi/1 Inter,sans-serif; color:#1C1C1C; cursor:pointer">✕</div>
+
+            <div style="position:absolute; top:14cqi; left:7cqi; right:7cqi; bottom:14cqi; z-index:3; display:flex; flex-direction:column">
+              <div style="font:700 2.7cqi/1.45 Inter,sans-serif; letter-spacing:0.22em; text-transform:uppercase; color:#8A857E; margin-bottom:6cqi">You're in</div>
+              <div style="font:800 11.5cqi/0.98 Inter,sans-serif; letter-spacing:-0.030em; color:#1C1C1C; margin-bottom:4cqi">Check your<br><em style="font-weight:300; font-style:italic; color:#8A857E">inbox.</em></div>
+              <div style="font:400 3.6cqi/1.5 Inter,sans-serif; color:#1C1C1C; margin-bottom:3cqi; max-width:92%">The link to The Workshop just landed. Open it whenever you have a minute.</div>
+              <div style="font:300 italic 3.2cqi/1.5 Inter,sans-serif; color:#8A857E; max-width:92%; margin-bottom:auto">No rush. It doesn't expire.</div>
+
+              <div>
+                <div style="background:#1C1C1C; height:13cqi; display:flex; align-items:center; justify-content:center; cursor:pointer">
+                  <div style="font:700 3.3cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF">Keep browsing</div>
+                </div>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-S-01_Calm-Confirm_390x844_v6.5</div>
+            <div class="when"><b>S-01 · Calm Confirm · Full screen · safe</b><br/><span style="color:#7d6f5e">Full popup confirmation. NO checkmark. Clearest acknowledgment. Use if your audience needs reassurance.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">SUCCESS</span><span class="chip">Calm Confirm</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="SUCCESS" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="success-toast">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-S-02" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-S-02 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#1C1C1C; pointer-events:none">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; inset:0; background:#F5F2EC; overflow:hidden">
+              <div style="padding:18cqi 7cqi 0">
+                <div style="font:700 2.4cqi/1 Inter,sans-serif; letter-spacing:0.18em; text-transform:uppercase; color:#8A857E; margin-bottom:3cqi">The Classic · 8MM Gold</div>
+                <div style="display:grid; grid-template-columns:1fr; gap:3cqi">
+                  <div style="aspect-ratio:1/1; background:#1C1C1C; position:relative; overflow:hidden">
+                    <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-four-chains-side-by-side-macro.jpg" style="width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.9)"/>
+                  </div>
+                  <div>
+                    <div style="font:700 3.4cqi/1.2 Inter,sans-serif; color:#1C1C1C; margin-bottom:1cqi">Cuban link · 8mm · 20"</div>
+                    <div style="font:400 3cqi/1.3 Inter,sans-serif; color:#8A857E; margin-bottom:2cqi">316L surgical steel · PVD gold</div>
+                    <div style="font:800 3.8cqi/1 Inter,sans-serif; color:#1C1C1C">$188</div>
+                  </div>
+                  <div style="height:11cqi; background:#1C1C1C; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font:700 2.8cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; margin-top:2cqi">Add to cart — $188</div>
+                </div>
+              </div>
+            </div>
+            <div style="position:absolute; left:5cqi; right:5cqi; bottom:8cqi; background:#1C1C1C; color:#F5F2EC; padding:4cqi 5cqi; display:flex; align-items:center; gap:4cqi; z-index:5">
+              <div>
+                <div style="font:700 2.4cqi/1 Inter,sans-serif; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,236,0.6); margin-bottom:0.8cqi">From the Workshop</div>
+                <div style="font:600 3.2cqi/1.35 Inter,sans-serif; color:#F5F2EC">You're in. Link's in your inbox.</div>
+              </div>
+              <div style="margin-left:auto; font:300 4cqi/1 Inter,sans-serif; opacity:0.45">✕</div>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-S-02_Soft-Toast_390x844_v6.5</div>
+            <div class="when"><b>S-02 · Soft Toast · Mock site + bottom toast · RECOMMENDED</b><br/><span style="color:#7d6f5e">Popup dismisses · slim bottom toast appears. Lowest friction. Keeps him shopping.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">SUCCESS</span><span class="chip">Soft Toast</span></div>
+          </div>
+        </div>
+        <div class="card" data-angle="community" data-format="popup" data-variant="SUCCESS" data-zone="z2" data-moment="evergreen" data-perf="new" data-style="editorial" data-sku="popup" data-launch="popups-workshop-may24-v6.5" data-tier="popup" data-occasion="community" data-treatment="success-banner">
+          <div class="frame frame-916" data-frame-pid="BLZ-POPUP-WSH-S-03" style="aspect-ratio:390/844; width:390px; max-width:100%; margin:0 auto; background:#F5F2EC">
+            <span class="pid new">BLZ-POPUP-WSH-S-03 · 390×844</span>
+            <div class="frame-inner">
+              <div class="adcanvas ink" style="background:#F5F2EC; color:#1C1C1C">
+            <div style="position:absolute; top:0; left:0; right:0; height:5.6%; z-index:9; display:flex; align-items:center; justify-content:space-between; padding:0 6.5%; font-size:3.6cqi; font-weight:600; color:#1C1C1C; pointer-events:none">
+              <span style="letter-spacing:-0.01em; font-variant:tabular-nums">9:41</span>
+              <span style="font-size:3.3cqi">●●● 􀙇 􀛨</span>
+            </div>
+            <div style="position:absolute; top:2.5%; left:50%; transform:translateX(-50%); width:30%; height:3.3%; background:#000; border-radius:99px; z-index:10"></div>
+            <div style="position:absolute; left:0; right:0; top:6%; background:#1C1C1C; color:#F5F2EC; padding:2.8cqi 5cqi; display:flex; align-items:center; gap:3cqi; z-index:5">
+              <div style="font:700 2.2cqi/1 Inter,sans-serif; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,236,0.6); flex-shrink:0">From the Workshop</div>
+              <div style="font:500 2.8cqi/1 Inter,sans-serif; color:#F5F2EC; flex:1">Link sent · <span style="text-decoration:underline">Open it later</span></div>
+              <div style="font:300 3cqi/1 Inter,sans-serif; opacity:0.5">✕</div>
+            </div>
+            <div style="position:absolute; inset:0; background:#F5F2EC; overflow:hidden; padding-top:11.5%">
+              <div style="padding:5cqi 7cqi 0">
+                <div style="font:700 2.4cqi/1 Inter,sans-serif; letter-spacing:0.18em; text-transform:uppercase; color:#8A857E; margin-bottom:3cqi">The Classic · 8MM Gold</div>
+                <div style="display:grid; grid-template-columns:1fr; gap:3cqi">
+                  <div style="aspect-ratio:1/1; background:#1C1C1C; position:relative; overflow:hidden">
+                    <img loading="lazy" decoding="async" src="balanzi-assets/BALANZI%20-%20Behind%20The%20Scenes/bts-four-chains-side-by-side-macro.jpg" style="width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.9)"/>
+                  </div>
+                  <div>
+                    <div style="font:700 3.4cqi/1.2 Inter,sans-serif; color:#1C1C1C; margin-bottom:1cqi">Cuban link · 8mm · 20"</div>
+                    <div style="font:400 3cqi/1.3 Inter,sans-serif; color:#8A857E; margin-bottom:2cqi">316L surgical steel · PVD gold</div>
+                    <div style="font:800 3.8cqi/1 Inter,sans-serif; color:#1C1C1C">$188</div>
+                  </div>
+                  <div style="height:11cqi; background:#1C1C1C; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font:700 2.8cqi/1 Inter,sans-serif; letter-spacing:0.16em; text-transform:uppercase; margin-top:2cqi">Add to cart — $188</div>
+                </div>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:1%; left:50%; transform:translateX(-50%); width:33%; height:0.4%; background:rgba(28,28,28,0.4); border-radius:99px; z-index:10"></div>
+          </div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="name">BLZ_POPUP-WSH-S-03_Sticky-Banner_390x844_v6.5</div>
+            <div class="when"><b>S-03 · Sticky Banner · Mock site + top banner</b><br/><span style="color:#7d6f5e">Popup dismisses · thin top banner stays for the session. More present, still passive.</span></div>
+            <div class="chips"><span class="chip new">NEW</span><span class="chip" style="background:#2E5A3E; color:#F4F2EE">SUCCESS</span><span class="chip">Sticky Banner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END extracted section -->
+
+</body>
+</html>
